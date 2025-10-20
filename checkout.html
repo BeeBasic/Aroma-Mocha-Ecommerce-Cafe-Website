@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Checkout</title>
+    <link rel="icon" type="image/png" href="tabicon.png"/>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;700&display=swap" rel="stylesheet" />
+    <style>
+        body { 
+            font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            background-color: #f9f5f0;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-blend-mode: overlay;
+            background-color: rgba(136, 115, 31, 0.9);
+        }
+
+        /* Header styles */
+        header {
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        
+        .bottom-header {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            padding: 6px 40px;
+            gap: 2rem;
+            background-color: transparent;
+            color: #F5E6D3;
+            transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+        }
+        
+        .bottom-header.scrolled {
+            background-color: #2B1810;
+            color: #F5E6D3;
+        }
+        
+        /* Logo styles */
+        .bottom-header .log {
+            display: flex;
+            gap: 20px;
+        }
+
+        .bottom-header .log img {
+            height: 100px;
+            background-color: transparent;
+        }
+        
+        .bottom-header .log .logo {
+            margin-top: 0;
+        }
+
+        .bottom-header .log .logo h3 {
+            color: #F5E6D3;
+            margin: 5px 0;
+        }
+        
+        .bottom-header.scrolled .log .logo h3 {
+            color: #F5E6D3;
+        }
+        
+        /* Navigation styles */
+        .main-nav {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #F5E6D3; 
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background-color: #F5E6D3; 
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover {
+            color: #F5E6D3; 
+            opacity: 0.8; 
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .login {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            justify-content: flex-end;
+        }
+
+        .login button {
+            padding: 15px 30px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #F5E6D3;
+            border: 2px solid #F5E6D3;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: medium;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .login button:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+            transform: scale(1.05);
+        }
+
+        .login a {
+            text-decoration: none;
+            color: #F5E6D3;
+            transition: color 0.3s ease;
+            font-weight: bold;
+        }
+
+        /* Footer styles */
+        .footer {
+            background-color: #2B1810;
+            color: #F5E6D3;
+            padding: 60px 0 30px;
+            font-family: 'Work Sans', sans-serif;
+        }
+  
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            padding: 0 20px;
+        }
+  
+        .footer-section {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+  
+        .footer-section h3 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            color: #8B4513;
+        }
+  
+        .footer-section p {
+            line-height: 1.6;
+            margin: 0;
+        }
+  
+        .footer-section a {
+            color: #F5E6D3;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+  
+        .footer-section a:hover {
+            color: #8B4513;
+        }
+  
+        .social-links {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+  
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #8B4513;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+  
+        .social-icon:hover {
+            background-color: #5C2E0E;
+            transform: scale(1.1);
+        }
+  
+        .footer-bottom {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #8B4513;
+            text-align: center;
+            font-size: 0.9em;
+        }
+
+        /* Existing checkout styles */
+        .main-content {
+            margin-top: 120px; /* Add space for fixed header */
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #2C3A2F;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: #F5F1E8;
+        }
+        
+        .logo img {
+            width: 120px;
+            height: 120px;
+            border-radius: 60px;
+        }
+
+        .nav-menu {
+            display: flex;
+        }
+
+        .nav-item {
+            margin-left: 25px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            color: #F5F1E8;
+            display: flex;
+            justify-content: center;
+        }
+
+        .buttons {
+            display: flex;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            margin-left: 15px;
+            border-radius: 25px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #F5F1E8;
+            color: #F5F1E8;
+        }
+
+        .btn-filled {
+            background-color: #C9A66B;
+            border: none;
+            color: #2C3A2F;
+        }
+
+        .container {
+            width: 60%;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+            background-color: rgba(255, 255, 255, 0.95);
+            max-width: 600px;
+        }
+
+        .sidebar {
+            width: 30%;
+            background: white;
+            padding: 30px;
+            margin-left: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+            background-color: rgba(255, 255, 255, 0.95);
+            max-width: 300px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #6F4E37;
+            font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            border-bottom: 2px solid #D2B48C;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        ul { list-style-type: none; padding: 0; }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px dashed #D2B48C;
+        }
+
+        .order-item:last-child {
+            border-bottom: none;
+        }
+
+        .remove-btn {
+            background-color: #6f4e37;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            font-size: 14px;
+            border-radius: 50%;
+            cursor: pointer;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .remove-btn:hover {
+            background-color: #5a3f2c;
+            transform: scale(1.1);
+        }
+
+        .checkout-btn {
+            background-color: #6F4E37;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .checkout-btn:hover {
+            background-color:#8B4513;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #3C2A1E;
+            font-weight: bold;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #D2B48C;
+            border-radius: 8px;
+            font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #6F4E37;
+            box-shadow: 0 0 5px rgba(111, 78, 55, 0.5);
+        }
+
+        .checkout-logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .checkout-logo img {
+            width: 120px;
+            height: 120px;
+            border-radius: 60px;
+        }
+
+        .total-section {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 2px solid #D2B48C;
+            font-size: 1.2em;
+            text-align:center;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+                align-items: center;
+            }
+            .container, .sidebar {
+                width: 90%;
+                margin: 0 0 20px 0;
+            }
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .nav-menu {
+                margin: 20px 0;
+            }
+            .buttons {
+                flex-direction: column;
+            }
+            .btn {
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="bottom-header" id="bottomHeader">
+            <div class="log">
+                <img style="mix-blend-mode: lighten;background-color:transparent;" src="prx.png" />
+                <div class="logo">
+                    <br>
+                    <h3>AROMA</h3>
+                    <h3>MOCHA</h3>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <a href="http://127.0.0.1:5500/Web_dev/HTMLL/project/proj.html" style="font-size: medium;" class="nav-link">HOME</a>
+                <a href="http://127.0.0.1:5500/Web_dev/HTMLL/project/mix.html" style="font-size: medium;" class="nav-link">MENU</a>
+                <a href="http://127.0.0.1:5500/Web_dev/HTMLL/project/blog.html" style="font-size: medium;" class="nav-link">BLOGS</a>
+                <a href="dummymerch.html" style="font-size: medium;" class="nav-link">MERCHANDISE</a>
+            </nav>
+            <div class="login">
+                <a href="">LOG IN</a>
+                <button type="button">JOIN NOW</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <div class="container">
+            <h2>Customer Details</h2>
+            <form id="checkout-form">
+                <div class="form-group">
+                    <label for="name">Full Name:</label>
+                    <input type="text" id="name" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" placeholder="Enter your phone number" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Delivery Address:</label>
+                    <textarea id="address" rows="3" placeholder="Enter your complete address" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="notes">Special Instructions:</label>
+                    <textarea id="notes" rows="2" placeholder="Any special requests or instructions"></textarea>
+                </div>
+                <button type="submit" class="checkout-btn">Complete Order</button>
+            </form>
+            <button onclick="goBack()" class="checkout-btn">Return to Menu</button>
+        </div>
+        <div class="sidebar">
+            <h2>Your Order</h2>
+            <ul id="order-list"></ul>
+            <div class="total-section">
+                <p><strong>Subtotal: ₹<span id="subtotal">0.00</span></strong></p>
+                <p><strong>Tax (10%): ₹<span id="tax">0.00</span></strong></p>
+                <p style="font-size: 1.2em; color:#8B4513;"><strong>Total: ₹<span id="total">0.00</span></strong></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>Aroma Mocha brings the authentic taste of Tokyo to your cup. Our passion for Japanese coffee culture and cuisine creates an unforgettable experience for our guests.</p>
+            </div>
+  
+            <div class="footer-section">
+                <h3>Visit Us</h3>
+                <p>123 Sakura Street</p>
+                <p>Downtown District</p>
+                <p>Open Daily: 7AM - 10PM</p>
+                <p>Contact: (555) 123-4567</p>
+                <p>info@aromamocha.com</p>
+            </div>
+  
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="#">Our Menu</a>
+                <a href="#">Reservations</a>
+                <a href="#">Events</a>
+                <a href="#">Gift Cards</a>
+                <a href="#">Careers</a>
+            </div>
+  
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#" class="social-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="#F5E6D3">
+                            <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="#F5E6D3">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="#F5E6D3">
+                            <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.419.239.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="#F5E6D3">
+                            <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="#F5E6D3">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Aroma Mocha. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener("scroll", function () {
+            var bottomHeader = document.getElementById("bottomHeader");
+            if (window.scrollY > 10) {
+                bottomHeader.classList.add("scrolled");
+            } else {
+                bottomHeader.classList.remove("scrolled");
+            }
+        });
+
+        function loadOrder() {
+            let order = JSON.parse(localStorage.getItem('order')) || [];
+            let subtotal = parseFloat(localStorage.getItem('total')) || 0;
+            const orderList = document.getElementById('order-list');
+            orderList.innerHTML = '';
+            
+            if (order.length === 0) {
+                const emptyMessage = document.createElement('p');
+                emptyMessage.textContent = 'Your cart is empty';
+                emptyMessage.style.textAlign = 'center';
+                emptyMessage.style.fontStyle = 'italic';
+                emptyMessage.style.color = '#888';
+                orderList.appendChild(emptyMessage);
+            } else {
+                order.forEach((item, index) => {
+                    const listItem = document.createElement('li');
+                    listItem.classList.add('order-item');
+                    listItem.innerHTML = `
+                        <div>
+                            <strong>${item.name}</strong>
+                            <div style="font-size: 0.9em; color: #666;">
+                                ${item.options ? item.options : ''}
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <span style="margin-right: 10px;">₹${item.price.toFixed(2)}</span>
+                            <button onclick='removeItem(${index})' class="remove-btn">×</button>
+                        </div>
+                    `;
+                    orderList.appendChild(listItem);
+                });
+            }
+            
+            const subtotalDisplay = document.getElementById('subtotal');
+            const taxDisplay = document.getElementById('tax');
+            const totalDisplay = document.getElementById('total');
+            
+            const tax = subtotal * 0.1;
+            const finalTotal = subtotal + tax;
+            
+            subtotalDisplay.textContent = subtotal.toFixed(2);
+            taxDisplay.textContent = tax.toFixed(2);
+            totalDisplay.textContent = finalTotal.toFixed(2);
+            
+            localStorage.setItem('finalTotal', finalTotal);
+        }
+        
+        function removeItem(index) {
+            let order = JSON.parse(localStorage.getItem('order')) || [];
+            let total = parseFloat(localStorage.getItem('total')) || 0;
+            total -= order[index].price;
+            order.splice(index, 1);
+            localStorage.setItem('order', JSON.stringify(order));
+            localStorage.setItem('total', total);
+            loadOrder();
+        }
+        
+        function goBack() {
+            window.location.href = 'mix.html'; 
+        }
+        
+        document.getElementById("checkout-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            if (JSON.parse(localStorage.getItem('order') || '[]').length === 0) {
+                alert("Your cart is empty. Please add items before checking out.");
+                return;
+            }
+            alert(`Thank you, ${name}! Your order has been confirmed!\nYou'll receive a confirmation email shortly.`);
+            localStorage.removeItem('order');
+            localStorage.removeItem('total');
+            localStorage.removeItem('finalTotal');
+            window.location.href = 'proj.html';
+        });
+        
+        window.onload = loadOrder;
+    </script>
+</body>
+</html>

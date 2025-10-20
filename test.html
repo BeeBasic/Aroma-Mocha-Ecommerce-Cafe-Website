@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Aroma Mocha</title>
+    <link rel="icon" type="image/png" href="tabicon.png"/>
+
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: #f9f5f0; 
+            margin: 0; 
+            padding: 0;
+            color: #2a2a2a;
+            line-height: 1.6;
+        }
+        
+        .header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #2C3A2F;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: #F5F1E8;
+        }
+        
+        .logo img {
+            width: 120px;
+            height: 120px;
+            border-radius: 60px;
+        }
+
+        .nav-menu {
+            display: flex;
+        }
+
+        .nav-item {
+            margin-left: 25px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            color: #F5F1E8;
+            display: flex;
+            justify-content: center;
+        }
+
+        .buttons {
+            display: flex;
+        }       
+
+        .btn {
+            padding: 10px 20px;
+            margin-left: 15px;
+            border-radius: 25px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .remove-btn {
+            background-color: #6f4e37;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            font-size: 14px;
+            border-radius: 50%;
+            cursor: pointer;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .remove-btn:hover {
+            background-color: #5a3f2c;
+            transform: scale(1.1);
+        }
+            
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #F5F1E8;
+            color: #F5F1E8;
+        }
+            
+        .btn-filled {
+            background-color: #C9A66B;
+            border: none;
+            color: #2C3A2F;
+        }
+
+        .menu-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px auto 20px;
+            max-width: 600px;
+        }
+
+        .menu-tab {
+            padding: 12px 30px;
+            background-color: #fff;
+            border: 2px solid #6f4e37;
+            border-radius: 25px;
+            color: #6f4e37;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .footer {
+        background: linear-gradient(to bottom, #f9f5f0, #2C3A2F); 
+        text-align: center;
+        padding: 20px;
+        color: white;
+        font-size: 18px;
+        margin-top: 50px;
+        min-height: 50vh;
+        }
+
+        .social-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: #C9A66B;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .menu-tab.active {
+            background-color: #6f4e37;
+            color: #fff;
+        }
+
+        .menu-tab:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .menu-section {
+            display: none;
+        }
+
+        .menu-section.active {
+            display: block;
+        }
+        
+        .menu-content { 
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 30px; 
+            margin-top: 20px; 
+        }
+        
+        .card { 
+            background: white; 
+            border-radius: 12px; 
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        .card-image-container {
+            width: 100%;
+            padding-top: 50%; 
+            position:relative;
+            overflow: hidden;
+        }
+        
+        .card img { 
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit:contain;
+            transition: transform 0.5s ease;
+        }
+        
+        .card:hover img {
+            transform: scale(1.05);
+        }
+        
+        .card-content {
+            padding: 20px;
+            text-align: center;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card h3 { 
+            margin: 0 0 10px 0;
+            color: #6f4e37;
+            font-size: 1.4rem;
+        }
+        
+        .card p { 
+            margin: 0;
+            color: #666;
+            flex-grow: 1;
+        }
+        
+        .add-to-cart {
+            background-color:#6f4e37;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            margin-top: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 80%;
+            margin: 15px auto 0;
+        }
+        
+        .add-to-cart:hover {
+            background-color: #5a3f2c;
+            transform: scale(1.05);
+        }
+        
+        .order-summary { 
+            margin-top: 50px; 
+            padding: 30px; 
+            background: white; 
+            border-radius: 12px; 
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        
+        .order-summary h2 {
+            text-align: center;
+            margin-top: 0;
+            color:#6f4e37;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .order-summary h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: #d4a76a;
+        }
+        
+        ul { 
+            list-style-type: none; 
+            padding: 0; 
+        }
+        
+        li {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        li:last-child {
+            border-bottom: none;
+        }
+        
+        .total-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px dashed #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.2rem;
+        }
+        
+        .checkout-btn {
+            display: block;
+            width: 100%;
+            background-color: #6f4e37;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 25px;
+        }
+        
+        .checkout-btn:hover {
+            background-color: #5a3f2c;
+        }
+        
+        .empty-cart-message {
+            text-align: center;
+            color: #888;
+            font-style: italic;
+            padding: 20px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                padding: 15px;
+            }
+            
+            .nav-menu {
+                margin: 15px 0;
+            }
+            
+            .nav-item {
+                margin-left: 15px;
+                font-size: 12px;
+            }
+            
+            .buttons {
+                margin-top: 15px;
+            }
+            
+            .btn {
+                padding: 8px 15px;
+                font-size: 12px;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <img src="prx.png" alt="Aroma Mocha">
+        </div>
+        <div class="nav-menu">
+            <div class="nav-item">Home</div>
+            <div class="nav-item">Menu</div>
+            <div class="nav-item">Blog</div>
+            <div class="nav-item">About</div>
+            <div class="nav-item">Contact</div>
+        </div>
+        <div class="buttons">
+            <button class="btn btn-outline">LOG IN</button>
+            <button class="btn btn-filled">YOUR ACCOUNT</button>
+        </div>
+    </div>
+
+    <div class="menu-content">
+        <div class="menu-tabs">
+            <button class="menu-tab active" onclick="switchMenu('coffee')">Coffee</button>
+            <button class="menu-tab" onclick="switchMenu('tea')">Tea</button>
+            <button class="menu-tab" onclick="switchMenu('snacks')">Snacks</button>
+        </div>
+
+        <div id="coffee-menu" class="menu-section active">
+            <h2>Traditional Coffee Drinks</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-image-container">
+                        <img src="https://www.oddbeans.in/cdn/shop/articles/image1_9a1a2488-7d3e-49e6-ae4a-babcc1c17218.jpg?v=1721478108&width=1100" alt="Americano">
+                    </div>
+                    <div class="card-content">
+                        <h3>Americano</h3>
+                        <p>A smooth and bold espresso-based coffee, made by diluting a rich shot of espresso with hot water. This creates a balanced, smoky flavor with a light crema on top, perfect for those who enjoy a strong yet easy-drinking coffee.</p>
+                        <div class="price">₹250</div>
+                        <button class="add-to-cart" onclick="addToOrder('Americano', 250)">
+                            Add to Order
+                        </button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-image-container">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOqWLXIWaaTkwjeMz3-RA4d7jvg-7Fs67L_A&s" alt="Café Au Lait">
+                    </div>
+                    <div class="card-content">
+                        <h3>Café Au Lait</h3>
+                        <p>A comforting French classic, featuring freshly brewed coffee blended with steamed milk in equal parts. This creamy and mellow drink offers a smooth texture and a delicate balance of bold coffee and velvety milk.</p>
+                        <div class="price">₹320</div>
+                        <button class="add-to-cart" onclick="addToOrder('Café Au Lait', 320)">
+                            Add to Order
+                        </button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-image-container">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9XAW2dKjfyKedMHS0RCpElyziMJxhllI6lw&s" alt="Cappuccino">
+                    </div>
+                    <div class="card-content">
+                        <h3>Cappuccino</h3>
+                        <p>A rich and frothy espresso-based favorite, crafted with a shot of bold espresso, steamed milk, and a thick layer of airy milk foam. This indulgent drink delivers a perfect harmony of strong coffee flavor and creamy, velvety texture.</p>
+                        <div class="price">₹270</div>
+                        <button class="add-to-cart" onclick="addToOrder('Cappuccino', 270)">
+                            Add to Order
+                        </button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-image-container">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrjyHlkViXf1t9FlpAnmlozT9DZSvPbFi-Lg&s" alt="Espresso">
+                    </div>
+                    <div class="card-content">
+                        <h3>Espresso</h3>
+                        <p>A concentrated shot of rich, bold coffee with a deep aroma and a velvety crema on top. Perfect for those who love a strong, full-bodied coffee experience.</p>
+                        <div class="price">₹270</div>
+                        <button class="add-to-cart" onclick="addToOrder('Espresso', 270)">
+                            Add to Order
+                        </button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-image-container">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSNw7oOeCCCIv_D1ok78I61XqgUl1ZU_S2DA&s" alt="Latte">
+                    </div>
+                    <div class="card-content">
+                        <h3>Latte</h3>
+                        <p>A smooth and creamy coffee made with a shot of espresso and steamed milk, topped with a light layer of foam. The perfect choice for a mellow, comforting drink.</p>
+                        <div class="price">₹270</div>
+                        <button class="add-to-cart" onclick="addToOrder('Latte', 270)">
+                            Add to Order
+                        </button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-image-container">
+                        <img src="https://coffeebros.com/cdn/shop/articles/latte-vs-flat-white-all-differences-explained.jpg?v=1676581028" alt="Flat White">
+                    </div>
+                    <div class="card-content">
+                        <h3>Flat White</h3>
+                        <p>A silky-smooth espresso-based drink made with microfoam milk, offering a rich, velvety texture and a strong coffee taste with a creamy finish.</p>
+                        <div class="price">₹270</div>
+                        <button class="add-to-cart" onclick="addToOrder('Flat White', 270)">
+                            Add to Order
+                        </button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-image-container">
+                        <img src="https://i0.wp.com/www.teacoffeecup.com/wp-content/uploads/2020/08/classic-macchiato-espresso.jpg?fit=550%2C367&ssl=1" alt="Macchiato">
+                    </div>
+                    <div class="card-content">
+                        <h3>Macchiato</h3>
+                        <p>A bold espresso “stained” with a dollop of frothy milk. This small but powerful coffee delivers an intense flavor with just a hint of creaminess.</p>
+                        <div class="price">₹270</div>
+                        <button class="add-to-cart" onclick="addToOrder('Macchiato', 270)">
+                            Add to Order
+                        </button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-image-container">
+                        <img src="https://hoxtoncoffee.com/cdn/shop/articles/latte-art-on-mocha_1200x1200.jpg?v=1660069726" alt="Mocha">
+                    </div>
+                    <div class="card-content">
+                        <h3>Mocha</h3>
+                        <p>A delicious fusion of espresso, steamed milk, and rich chocolate syrup, topped with a swirl of whipped cream. Perfect for chocolate and coffee lovers alike!</p>
+                        <div class="price">₹270</div>
+                        <button class="add-to-cart" onclick="addToOrder('Mocha', 270)">
+                            Add to Order
+                        </button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-image-container">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhNoAlZ7DhDnM-iVgeFiq6t_-O-B06E4v86A&s" alt="Affogato">
+                    </div>
+                    <div class="card-content">
+                        <h3>Affogato</h3>
+                        <p>A decadent dessert-coffee hybrid, featuring a scoop of creamy vanilla ice cream “drowned” in a shot of hot espresso. A perfect balance of hot and cold, bitter and sweet.</p>
+                        <div class="price">₹270</div>
+                        <button class="add-to-cart" onclick="addToOrder('Affogato', 270)">
+                            Add to Order
+                        </button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <div id="tea-menu" class="menu-section">
+            <h2>Premium Tea Selection</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-image-container">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVdHZdhyas3PCxd49-iMJ-SlDrMqS_QG2xRg&s" alt="Jasmine Pearl Green Tea">
+                    </div>
+                    <div class="card-content">
+                        <h3>Jasmine Pearl Green Tea</h3>
+                        <p>Hand-rolled green tea leaves infused with the delicate aroma of jasmine blossoms. This soothing tea offers a light, floral taste with a smooth, sweet finish. Perfect for a calming and aromatic tea experience.</p>
+                        <div class="price">₹180</div>
+                        <button class="add-to-cart" onclick="addToOrder('Green Tea', 180)">
+                            Add to Order
+                        </button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-image-container">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsf-pUa1Bemy2CbrIu7hwnuu-ffu64Ug1Lxg&s" alt="Masala Chai">
+                    </div>
+                    <div class="card-content">
+                        <h3>Masala Chai</h3>
+                        <p>A bold blend of black tea and warming spices, including cinnamon, cardamom, ginger, and cloves. Steeped with milk and sweetened to taste, this traditional Indian chai delivers a rich flavor with a comforting warmth in every sip.</p>
+                        <div class="price">₹150</div>
+                        <button class="add-to-cart" onclick="addToOrder('Masala Chai', 150)">
+                            Add to Order
+                        </button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-image-container">
+                        <img src="https://cookingwithawallflower.com/wp-content/uploads/2018/07/Blueberry-Hibiscus-Iced-Tea-1-2.jpg" alt="Blueberry Hibiscus Iced Tea">
+                    </div>
+                    <div class="card-content">
+                        <h3>Blueberry Hibiscus Iced Tea</h3>
+                        <p>A refreshing herbal infusion of tangy hibiscus flowers and juicy blueberries, served over ice. This caffeine-free delight offers a balance of tart and sweet flavors, making it the perfect thirst-quencher on a hot day.</p>
+                        <div class="price">₹200</div>
+                        <button class="add-to-cart" onclick="addToOrder('Blueberry Hibiscus Iced Tea', 200)">
+                            Add to Order
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="snacks-menu" class="menu-section">
+            <h2>Delicious Snacks</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-image-container">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdEUMmWKBGu0fFufDm15BNVtGecJ16Edehxg&s" alt="Almond Croissant">
+                    </div>
+                    <div class="card-content">
+                        <h3>Almond Croissant</h3>
+                        <p>A buttery, flaky croissant filled with rich almond cream and topped with toasted almonds and a dusting of powdered sugar. This sweet and nutty pastry pairs perfectly with a hot cup of coffee.</p>
+                        <div class="price">₹120</div>
+                        <button class="add-to-cart" onclick="addToOrder('Almond Croissant', 120)">
+                            Add to Order
+                        </button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-image-container">
+                        <img src="https://sugargeekshow.com/wp-content/uploads/2019/10/chocolate-chip-muffins-featured.jpg" alt="Chocolate Chip Muffin ">
+                    </div>
+                    <div class="card-content">
+                        <h3>Chocolate Chip Muffin</h3>
+                        <p>A soft and fluffy muffin loaded with rich, melty chocolate chips in every bite. This classic treat has a delicate balance of sweetness and a hint of vanilla, making it the perfect indulgence to pair with your morning coffee or afternoon tea.</p>
+                        <div class="price">₹100</div>
+                        <button class="add-to-cart" onclick="addToOrder('Chocolate Chip Muffin', 100)">
+                            Add to Order
+                        </button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-image-container">
+                        <img src="https://mariasmenu.com/wp-content/uploads/Kerala-Egg-Puffs.png" alt="Egg Puff">
+                    </div>
+                    <div class="card-content">
+                        <h3>Egg Puff</h3>
+                        <p>A crispy, golden-brown puff pastry filled with a perfectly seasoned boiled egg and a flavorful spiced onion filling. This savory delight is perfect for a quick, delicious snack alongside a hot cup of coffee or chai.</p>
+                        <div class="price">₹75</div>
+                        <button class="add-to-cart" onclick="addToOrder('Egg Puff', 75)">
+                            Add to Order
+                        </button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-image-container">
+                        <img src="https://images.immediate.co.uk/production/volatile/sites/30/2022/10/Chocolate-chip-banana-bread--26ccccf.jpg" alt="Banana Bread">
+                    </div>
+                    <div class="card-content">
+                        <h3>Banana Bread</h3>
+                        <p>A moist, homemade-style loaf with ripe bananas, warm cinnamon, and a hint of vanilla. Sometimes topped with walnuts for extra crunch.</p>
+                        <div class="price">₹75</div>
+                        <button class="add-to-cart" onclick="addToOrder('Banana Bread', 75)">
+                            Add to Order
+                        </button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-image-container">
+                        <img src="https://img.hellofresh.com/f_auto,fl_lossy,q_auto,w_1200/hellofresh_s3/image/645af756cd93ab51c00178bc-15c2ff16.jpg" alt="Ham & Cheese Croissant ">
+                    </div>
+                    <div class="card-content">
+                        <h3>Ham & Cheese Croissant </h3>
+                        <p>A savory croissant filled with melted cheese and slices of smoked ham. Buttery, flaky, and satisfying for a quick breakfast or snack.</p>
+                        <div class="price">₹75</div>
+                        <button class="add-to-cart" onclick="addToOrder('Ham & Cheese Croissant ', 75)">
+                            Add to Order
+                        </button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-image-container">
+                        <img src="https://easyweeknightrecipes.com/wp-content/uploads/2022/06/Cinnamon-Rolls31791.jpg" alt="Cinnamon Roll">
+                    </div>
+                    <div class="card-content">
+                        <h3>Cinnamon Roll</h3>
+                        <p>A soft, fluffy pastry rolled with cinnamon sugar and topped with a sweet vanilla glaze. Perfectly spiced and irresistible with a hot coffee.</p>
+                        <div class="price">₹75</div>
+                        <button class="add-to-cart" onclick="addToOrder('Cinnamon Roll', 75)">
+                            Add to Order
+                        </button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-image-container">
+                        <img src="https://www.sugarandsoul.co/wp-content/uploads/2022/05/raspberry-danishes-17.jpg" alt="Raspberry Danish">
+                    </div>
+                    <div class="card-content">
+                        <h3>Raspberry Danish</h3>
+                        <p>A buttery, flaky pastry filled with sweet raspberry jam and topped with a drizzle of icing. A fruity, tangy treat with just the right amount of sweetness.</p>
+                        <div class="price">₹75</div>
+                        <button class="add-to-cart" onclick="addToOrder('Raspberry Danish', 75)">
+                            Add to Order
+                        </button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-image-container">
+                        <img src="https://www.inspiredtaste.net/wp-content/uploads/2024/01/Carrot-Cake-Recipe-Video.jpg" alt="Carrot Cake">
+                    </div>
+                    <div class="card-content">
+                        <h3>Carrot Cake</h3>
+                        <p>A moist and spiced cake with shredded carrots, walnuts, and a smooth cream cheese frosting. A classic comfort dessert with a hint of warmth.</p>
+                        <div class="price">₹75</div>
+                        <button class="add-to-cart" onclick="addToOrder('Carrot Cake', 75)">
+                            Add to Order
+                        </button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-image-container">
+                        <img src="https://frommybowl.com/wp-content/uploads/2019/01/Chocolate_Peanut_Butter_Brownies-10.jpg" alt="Peanut Butter Brownie">
+                    </div>
+                    <div class="card-content">
+                        <h3>Peanut Butter Brownie</h3>
+                        <p>A fudgy, chocolatey brownie swirled with creamy peanut butter. Rich, dense, and the perfect mix of sweet and nutty flavors.</p>
+                        <div class="price">₹75</div>
+                        <button class="add-to-cart" onclick="addToOrder('Peanut Butter Brownie', 75)">
+                            Add to Order
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="order-summary">
+            <h2>Order Summary</h2>
+            <div id="order-container">
+                <ul id="order-list"></ul>
+                <div id="empty-cart" class="empty-cart-message" style="display: none;">
+                    Your cart is empty. Add some delicious items!
+                </div>
+                <div class="total-section">
+                    <span><strong>Total:</strong></span>
+                    <span><strong>₹<span id="total">0.00</span></strong></span>
+                </div>
+                <button id="checkout-btn" class="checkout-btn" onclick="checkout()">
+                    Proceed to Checkout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="social-links">
+            <div class="social-icon">F</div>
+            <div class="social-icon">I</div>
+            <div class="social-icon">T</div>
+            <div class="social-icon">Y</div>
+        </div>
+        <div class="copyright">© 2025 The Coffee Shop. All rights reserved.</div>
+        <p>Made with <span class="heart">❤</span> in India</p>
+        </div>
+    </div>
+
+    <script>
+        function loadOrder() {
+            let order = JSON.parse(localStorage.getItem('order')) || [];
+            let total = parseFloat(localStorage.getItem('total')) || 0;
+            const orderList = document.getElementById('order-list');
+            const emptyCart = document.getElementById('empty-cart');
+            const checkoutBtn = document.getElementById('checkout-btn');
+            
+            orderList.innerHTML = '';
+            
+            if (order.length === 0) {
+                emptyCart.style.display = 'block';
+                checkoutBtn.disabled = true;
+                checkoutBtn.style.opacity = '0.6';
+                checkoutBtn.style.cursor = 'not-allowed';
+            } else {
+                emptyCart.style.display = 'none';
+                checkoutBtn.disabled = false;
+                checkoutBtn.style.opacity = '1';
+                checkoutBtn.style.cursor = 'pointer';
+                
+                order.forEach((item, index) => {
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `
+                        <span>${item.name}</span>
+                        <div>
+                            <span>₹${item.price.toFixed(2)}</span>
+                            <button onclick='removeItem(${index})' class="remove-btn">×</button>
+                        </div>
+                    `;
+                    orderList.appendChild(listItem);
+                });
+            }
+            
+            document.getElementById('total').textContent = total.toFixed(2);
+        }
+
+        function switchMenu(menuType) {
+            document.querySelectorAll('.menu-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            document.getElementById(`${menuType}-menu`).classList.add('active');
+            
+            document.querySelectorAll('.menu-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function addToOrder(item, price) {
+            let order = JSON.parse(localStorage.getItem('order')) || [];
+            let total = parseFloat(localStorage.getItem('total')) || 0;
+            
+            order.push({ name: item, price: price });
+            total += price;
+            
+            localStorage.setItem('order', JSON.stringify(order));
+            localStorage.setItem('total', total);
+            
+            loadOrder();
+        }
+        
+        function removeItem(index) {
+            let order = JSON.parse(localStorage.getItem('order')) || [];
+            let total = parseFloat(localStorage.getItem('total')) || 0;
+            
+            if (index >= 0 && index < order.length) {
+                total -= order[index].price;
+                order.splice(index, 1);
+                
+                localStorage.setItem('order', JSON.stringify(order));
+                localStorage.setItem('total', total);
+                
+                loadOrder();
+            }
+        }
+        
+        function checkout() {
+            window.location.href = 'checkout.html';
+        }
+        
+        window.onload = loadOrder;
+    </script>
+</body>
+</html>

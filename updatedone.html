@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Essential Equipment for the Home Barista</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;700&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            background-color: #FFFFFF;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .equipment-card {
+            background-color: #E6F3E6;
+            border-left: 4px solid #4A2C1D;
+        }
+        .equipment-title {
+            color: #4A2C1D;
+        }
+        .equipment-icon {
+            color: #2D5A27;
+        }
+        
+        /* Header styles */
+        header {
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        
+        .bottom-header {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            padding: 6px 40px;
+            gap: 2rem;
+            background-color: transparent;
+            color: #F5E6D3;
+            transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+        }
+        
+        .bottom-header.scrolled {
+            background-color: #2B1810;
+            color: #F5E6D3;
+        }
+        
+        /* Logo styles */
+        .bottom-header .log {
+            display: flex;
+            gap: 20px;
+        }
+
+        /* LOGO IMG */
+        .bottom-header .log img {
+            height: 100px;
+            background-color: transparent;
+        }
+        
+        .bottom-header .log .logo {
+            margin-top: 0;
+        }
+
+        /* LOGO NAME */
+        .bottom-header .log .logo h3 {
+            color: #F5E6D3;
+            margin: 5px 0;
+        }
+        
+        .bottom-header.scrolled .log .logo h3 {
+            color: #F5E6D3;
+        }
+        
+        /* Navigation styles */
+        .main-nav {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #F5E6D3; 
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .bottom-header.scrolled .nav-link {
+            color: #F5E6D3; 
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background-color: #F5E6D3; 
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover {
+            color: #F5E6D3; 
+            opacity: 0.8; 
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .login {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            justify-content: flex-end;
+        }
+
+        .login button {
+            padding: 15px 30px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #F5E6D3;
+            border: 2px solid #F5E6D3;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: medium;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .login button:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+            transform: scale(1.05);
+        }
+
+        .login a {
+            text-decoration: none;
+            color: #F5E6D3;
+            transition: color 0.3s ease;
+            font-weight: bold;
+        }
+
+        .bottom-header.scrolled .login button {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #F5E6D3;
+        }
+
+        .bottom-header.scrolled .login button:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .login a:hover {
+            color: #F5E6D3;
+            opacity: 0.8;
+        }
+        
+        .bottom-header button {
+            padding: 15px 30px;
+            background-color: #8B4513;
+            color: #F5E6D3;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: medium;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        
+        .bottom-header button:hover {
+            background-color: #5C2E0E;
+            transform: scale(1.05);
+        }
+        
+        /* Footer styles */
+        .footer {
+            background-color: #2B1810;
+            color: #F5E6D3;
+            padding: 60px 0 30px;
+            font-family: 'Work Sans', sans-serif;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            padding: 0 20px;
+        }
+        
+        .footer-section {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .footer-section h3 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            color: #8B4513;
+        }
+        
+        .footer-section p {
+            line-height: 1.6;
+            margin: 0;
+        }
+        
+        .footer-section a {
+            color: #F5E6D3;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .footer-section a:hover {
+            color: #8B4513;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #8B4513;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background-color: #5C2E0E;
+            transform: scale(1.1);
+        }
+        
+        .footer-bottom {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #8B4513;
+            text-align: center;
+            font-size: 0.9em;
+        }
+        
+        .payment-methods {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+            justify-content: center;
+        }
+        
+        .payment-icon {
+            width: 50px;
+            height: 32px;
+            background-color: #8B4513;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        
+        .payment-icon:hover {
+            background-color: #5C2E0E;
+            transform: scale(1.1);
+        }
+        
+        .payment-icon svg {
+            width: 30px;
+            height: 20px;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 1024px) {
+            .bottom-header {
+                padding: 6px 20px;
+            }
+            
+            .main-nav {
+                gap: 1.5rem;
+            }
+            
+            .nav-link {
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Adding padding to account for fixed header */
+        .content-container {
+            padding-top: 120px;
+        }
+        
+        .equipment-image {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 0.5rem;
+        }
+    </style>
+</head>
+<body class="font-sans leading-normal tracking-normal bg-white">
+    <!-- HEADER -->
+    <header>
+        <div class="bottom-header" id="bottomHeader">
+            <div class="log">
+                <img style="mix-blend-mode: lighten;background-color:transparent;" src="prx.png" />
+                <div class="logo">
+                    <br>
+                    <h3>AROMA</h3>
+                    <h3>MOCHA</h3>
+                </div>
+            </div>
+            <!-- NAV-BAR Setup -->
+            <nav class="main-nav">
+                <a href="http://127.0.0.1:5500/Web_dev/HTMLL/project/proj.html" style="font-size: medium;" class="nav-link">HOME</a>
+                <a href="http://127.0.0.1:5500/Web_dev/HTMLL/project/test.html" style="font-size: medium;" class="nav-link">MENU</a>
+                <a href="http://127.0.0.1:5500/Web_dev/HTMLL/project/blog.html" style="font-size: medium;" class="nav-link">BLOGS</a>
+                <a href="#" style="font-size: medium;" class="nav-link">MERCHANDISE</a>
+                <a href="#" style="font-size: medium;" class="nav-link">GIFT CARDS</a>
+            </nav>
+
+            <div class="login">
+                <a href="">LOG IN</a>
+                <button type="button">JOIN NOW</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="content-container">
+        <div class="container mx-auto px-4 py-8">
+            <h1 class="text-4xl font-bold text-center text-green-900 mb-12">Essential Equipment for the Home Barista</h1>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="equipment-card rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
+                    <div class="h-48 bg-gray-200 mb-4 rounded-lg flex items-center justify-center overflow-hidden">
+                        <img src="expressomachine.jpg.webp" alt="Espresso Machine" class="equipment-image">
+                    </div>
+                    <h2 class="equipment-title text-2xl font-semibold mb-4">1. Espresso Machine</h2>
+                    <p class="text-green-800 mb-4">The cornerstone of any home coffee setup. Choose between manual, semi-automatic, or fully automatic machines based on your skill level and budget.</p>
+                </div>
+                
+                <div class="equipment-card rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
+                    <div class="h-48 bg-gray-200 mb-4 rounded-lg flex items-center justify-center overflow-hidden">
+                        <img src="burr.jpg" alt="Burr Grinder" class="equipment-image">
+                    </div>
+                    <h2 class="equipment-title text-2xl font-semibold mb-4">2. Burr Grinder</h2>
+                    <p class="text-green-800 mb-4">Invest in a quality burr grinder for consistent grind size. Crucial for extracting the best flavor from your coffee beans.</p>
+                </div>
+                
+                <div class="equipment-card rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
+                    <div class="h-48 bg-gray-200 mb-4 rounded-lg flex items-center justify-center overflow-hidden">
+                        <img src="digital.webp" alt="Digital Scale" class="equipment-image">
+                    </div>
+                    <h2 class="equipment-title text-2xl font-semibold mb-4">3. Digital Scale</h2>
+                    <p class="text-green-800 mb-4">Precision is key in coffee brewing. A digital scale helps you measure coffee and water with exact accuracy.</p>
+                </div>
+                
+                <div class="equipment-card rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
+                    <div class="h-48 bg-gray-200 mb-4 rounded-lg flex items-center justify-center overflow-hidden">
+                        <img src="gooseneck.jpg.webp" alt="Gooseneck Kettle" class="equipment-image">
+                    </div>
+                    <h2 class="equipment-title text-2xl font-semibold mb-4">4. Gooseneck Kettle</h2>
+                    <p class="text-green-800 mb-4">Perfect for pour-over methods, offering precise water control and even extraction for pour-over and manual brewing techniques.</p>
+                </div>
+                
+                <div class="equipment-card rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
+                    <div class="h-48 bg-gray-200 mb-4 rounded-lg flex items-center justify-center overflow-hidden">
+                        <img src="expressotamper.jpg" alt="Espresso Tamper" class="equipment-image">
+                    </div>
+                    <h2 class="equipment-title text-2xl font-semibold mb-4">5. Espresso Tamper</h2>
+                    <p class="text-green-800 mb-4">Essential for creating the perfect espresso shot. Ensures even coffee bed compression for optimal extraction.</p>
+                </div>
+                
+                <div class="equipment-card rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
+                    <div class="h-48 bg-gray-200 mb-4 rounded-lg flex items-center justify-center overflow-hidden">
+                        <img src="frother.jpg" alt="Milk Frother" class="equipment-image">
+                    </div>
+                    <h2 class="equipment-title text-2xl font-semibold mb-4">6. Milk Frother</h2>
+                    <p class="text-green-800 mb-4">Create café-style milk foam for lattes and cappuccinos. Choose between manual, electric, or steam wand options.</p>
+                </div>
+                
+                <div class="equipment-card rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
+                    <div class="h-48 bg-gray-200 mb-4 rounded-lg flex items-center justify-center overflow-hidden">
+                        <img src="pourover.jpg" alt="Pour-Over Equipment" class="equipment-image">
+                    </div>
+                    <h2 class="equipment-title text-2xl font-semibold mb-4">7. Pour-Over Equipment</h2>
+                    <p class="text-green-800 mb-4">Includes a pour-over dripper, filters, and a server. Perfect for those who enjoy a more hands-on brewing method.</p>
+                </div>
+                
+                <div class="equipment-card rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
+                    <div class="h-48 bg-gray-200 mb-4 rounded-lg flex items-center justify-center overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1611854779393-1b2da9d400fe" alt="Coffee Storage" class="equipment-image">
+                    </div>
+                    <h2 class="equipment-title text-2xl font-semibold mb-4">8. Coffee Storage</h2>
+                    <p class="text-green-800 mb-4">Airtight containers to preserve bean freshness. Look for options with one-way valve to release CO2.</p>
+                </div>
+                
+                <div class="equipment-card rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
+                    <div class="h-48 bg-gray-200 mb-4 rounded-lg flex items-center justify-center overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1611854779393-1b2da9d400fe" alt="Cleaning Tools" class="equipment-image">
+                    </div>
+                    <h2 class="equipment-title text-2xl font-semibold mb-4">9. Cleaning Tools</h2>
+                    <p class="text-green-800 mb-4">Specialized brushes, descaling solutions, and cleaning tablets to maintain your equipment and ensure great-tasting coffee.</p> 
+                </div>
+             </div>
+             <div class="text-center mt-8 text-green-900">
+                <p class="text-xl">Elevate Your Home Coffee Experience</p>
+                <p class="text-green-700 mt-2">Invest in quality tools and become your own master barista!</p>
+            </div>
+        </div>
+    </div>
+<!-- FOOTER -->
+<footer class="footer">
+<div class="footer-content">
+    <div class="footer-section">
+        <h3>About Us</h3>
+        <p>Aroma Mocha brings the authentic taste of Tokyo to your cup. Our passion for Japanese coffee culture and cuisine creates an unforgettable experience for our guests.</p>
+    </div>
+
+    <div class="footer-section">
+        <h3>Visit Us</h3>
+        <p>123 Sakura Street</p>
+        <p>Downtown District</p>
+        <p>Open Daily: 7AM - 10PM</p>
+        <p>Contact: (555) 123-4567</p>
+        <p>info@aromamocha.com</p>
+    </div>
+
+    <div class="footer-section">
+        <h3>Quick Links</h3>
+        <a href="#">Our Menu</a>
+        <a href="#">Reservations</a>
+        <a href="#">Events</a>
+        <a href="#">Gift Cards</a>
+        <a href="#">Careers</a>
+    </div>
+
+    <div class="footer-section">
+        <h3>Connect With Us</h3>
+        <div class="social-links">
+            <a href="#" class="social-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#F5E6D3" viewBox="0 0 24 24">
+                    <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
+                </svg>
+            </a>
+            <a href="#" class="social-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#F5E6D3" viewBox="0 0 24 24">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+            </a>
+            <a href="#" class="social-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#F5E6D3" viewBox="0 0 24 24">
+                    <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                </svg>
+            </a>
+            <a href="#" class="social-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#F5E6D3" viewBox="0 0 24 24">
+                    <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="footer-bottom">
+    <div class="payment-methods">
+        <div class="payment-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" fill="#F5E6D3" viewBox="0 0 24 24">
+                <path d="M22 4h-20c-1.104 0-2 .896-2 2v12c0 1.104.896 2 2 2h20c1.104 0 2-.896 2-2v-12c0-1.104-.896-2-2-2zm0 13.5c0 .276-.224.5-.5.5h-19c-.276 0-.5-.224-.5-.5v-6.5h20v6.5zm0-9.5h-20v-1.5c0-.276.224-.5.5-.5h19c.276 0 .5.224.5.5v1.5zm-9 6h-9v-1h9v1zm-3 2h-6v-1h6v1z"/>
+            </svg>
+        </div>
+        <div class="payment-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" fill="#F5E6D3" viewBox="0 0 24 24">
+                <path d="M22 4h-20c-1.104 0-2 .896-2 2v12c0 1.104.896 2 2 2h20c1.104 0 2-.896 2-2v-12c0-1.104-.896-2-2-2zm-19.5 12c-.276 0-.5-.224-.5-.5v-7c0-.276.224-.5.5-.5s.5.224.5.5v7c0 .276-.224.5-.5.5zm16.5-6h-4v-2h4v2zm-4 1h4v2h-4v-2z"/>
+            </svg>
+        </div>
+        <div class="payment-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" fill="#F5E6D3" viewBox="0 0 24 24">
+                <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
+            </svg>
+        </div>
+        <div class="payment-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" fill="#F5E6D3" viewBox="0 0 24 24">
+                <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm-1 14H5c-.55 0-1-.45-1-1V8h16v9c0 .55-.45 1-1 1z"/>
+            </svg>
+        </div>
+    </div>
+    <p>&copy; 2025 Aroma Mocha. All rights reserved.</p>
+    <p>Designed with ♥️ for coffee lovers everywhere</p>
+</div>
+</footer>
+
+<script>
+// Change header background on scroll
+window.addEventListener("scroll", function () {
+    var bottomHeader = document.getElementById("bottomHeader");
+    if (window.scrollY > 10) {
+        bottomHeader.classList.add("scrolled");
+    } else {
+        bottomHeader.classList.remove("scrolled");
+    }
+});
+</script>
+</body>
+</html>
